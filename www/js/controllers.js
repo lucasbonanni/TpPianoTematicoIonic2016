@@ -70,7 +70,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+.controller('PlaylistsCtrl', function($scope, $cordovaFile) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -79,6 +79,41 @@ angular.module('starter.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
+  /*
+  document.addEventListener('deviceready',function(){
+      $cordovaFile.createDir(cordova.file.dataDirectory,"new_dir",false);
+
+      $cordovaFile.CreateFile(cordova.file.dataDirectory,"new_text.txt",true);
+  }); */
+
+    $scope.crearArchivo = function(){
+      document.addEventListener('deviceready',function(){
+        $cordovaFile.CreateFile(cordova.file.dataDirectory,"new_text.txt",true)
+        .then(function (success) {
+         alert(success);
+      }, function (error) {
+        alert(error);
+      };
+    };
+
+    $scope.grabarArchivo= function(){
+      document.addEventListener('deviceready',function(){
+        $cordovaFile.writeExistingFile(cordova.file.dataDirectory,"new_text.txt","test",true);
+      }
+    };
+
+
+    $scope.leerArchivo= function(){
+      document.addEventListener('deviceready',function(){
+        $cordovaFile.readAsText(cordova.file.dataDirectory, $scope.inputs.readFile)
+      .then(function (success) {
+         alert(success);
+      }, function (error) {
+        alert(error);
+      });
+
+      }
+    }
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
