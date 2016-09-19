@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover,$timeout) {
 
@@ -71,31 +71,53 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistsCtrl', function($scope, $cordovaFile) {
-  $scope.playlists = [
+  /*$scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
     { title: 'Dubstep', id: 3 },
     { title: 'Indie', id: 4 },
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
-  ];
+  ];*/
   /*
   document.addEventListener('deviceready',function(){
       $cordovaFile.createDir(cordova.file.dataDirectory,"new_dir",false);
 
       $cordovaFile.CreateFile(cordova.file.dataDirectory,"new_text.txt",true);
   }); */
+    /*
+    $scope.crearArchivo = function(){
+      document.addEventListener(
+        'deviceready',function()
+        {
+          $cordovaFile.CreateFile(cordova.file.dataDirectory,"new_text.txt",true)
+          .then(function (success) {
+            alert(success);
+          }, function (error) {
+            alert(error);
+          };
+        }
+    )};*/
 
     $scope.crearArchivo = function(){
-      document.addEventListener('deviceready',function(){
-        $cordovaFile.CreateFile(cordova.file.dataDirectory,"new_text.txt",true)
-        .then(function (success) {
-         alert(success);
-      }, function (error) {
-        alert(error);
-      };
+      alert('function crear archivo');
+      $cordovaFile.CreateFile(cordova.file.externalRootDirectory,"new_text.txt",true)
+        .then(function(success){
+          alert(success);
+        },function(error){
+          alert(error);
+        });
+
+      $cordovaFile.getFreeDiskSpace()
+        .then(function(success){
+          alert(success);
+        },function(error){
+          alert(error);
+        });
     };
 
+
+/*
     $scope.grabarArchivo= function(){
       document.addEventListener('deviceready',function(){
         $cordovaFile.writeExistingFile(cordova.file.dataDirectory,"new_text.txt","test",true);
@@ -113,7 +135,7 @@ angular.module('starter.controllers', [])
       });
 
       }
-    }
+    }*/
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {

@@ -19,7 +19,11 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-material','ngCo
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    
   });
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
