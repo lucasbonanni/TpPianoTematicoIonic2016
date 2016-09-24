@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover,$timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover,$timeout,$cordovaNativeAudio,$ionicPlatform) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -70,7 +70,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
 })
 
-.controller('PlaylistsCtrl', function($scope, $cordovaFile) {
+.controller('PlaylistsCtrl',function($scope,$ionicPlatform, $cordovaFile,$cordovaDevice,$timeout,$interval, $stateParams) {
   /*$scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -98,14 +98,20 @@ angular.module('starter.controllers', ['ngCordova'])
           };
         }
     )};*/
-
+    $scope.exito = {};
+    alert('function crear archivo');
     $scope.crearArchivo = function(){
       alert('function crear archivo');
       $cordovaFile.CreateFile(cordova.file.externalRootDirectory,"new_text.txt",true)
         .then(function(success){
-          alert(success);
+          $scope.exito = angular.toJson(success);
+          alert($scope.exito);
         },function(error){
-          alert(error);
+           $scope.exito = angular.toJson(error);
+
+          console.log($scope.exito);
+          alert($scope.exito);
+
         });
 
       $cordovaFile.getFreeDiskSpace()
